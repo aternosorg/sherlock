@@ -1,0 +1,20 @@
+{
+    "name": "aternos/sherlock",
+    "description": "PHP library to apply minecraft mappings to log files",
+    "type": "library",
+    "require": {
+        "php": ">=8.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Aternos\\Sherlock\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Julian Vennen",
+            "email": "julian@aternos.org"
+        }
+    ]
+}
