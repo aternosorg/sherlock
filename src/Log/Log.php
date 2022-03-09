@@ -37,6 +37,11 @@ class Log
                         if ($method !== null) {
                             $methodName = $method->getName();
                         }
+
+                        if (preg_match("/^\s+\[$className\.class:\?]$/", $end, $endMatches)) {
+                            $end = " [" . $class->getName() . ".class:?]";
+                        }
+
                         $this->deobfuscatedContent .= $whitespace . "at " . $class->getPath() . "." . $methodName . "(SourceFile:" . $lineNumber . ")" . $end . "\n";
                         continue;
                     }
