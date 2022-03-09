@@ -3,7 +3,8 @@
     "description": "PHP library to apply minecraft mappings to log files",
     "type": "library",
     "require": {
-        "php": ">=8.0"
+        "php": ">=8.0",
+        "ext-curl": "*"
     },
     "license": "MIT",
     "autoload": {
