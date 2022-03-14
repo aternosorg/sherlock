@@ -4,21 +4,21 @@ namespace Aternos\Sherlock\MappedData;
 
 class MappedClass
 {
-    private string $name;
-    private string $package = "";
-    private string $obfuscatedName;
+    protected string $name;
+    protected string $package = "";
+    protected string $unmappedName;
     /**
      * @var MappedMethod[]
      */
-    private array $methods;
+    protected array $methods;
     /**
      * @var MappedField[]
      */
-    private array $fields;
+    protected array $fields;
 
-    public function __construct($path, $obfuscatedName)
+    public function __construct($mappedName, $unmappedName)
     {
-        preg_match("/^(?:(.*)\.)?([^.]+)$/", $path, $matches);
+        preg_match("/^(?:(.*)\.)?([^.]+)$/", $mappedName, $matches);
         if (isset($matches[2])) {
             $this->package = $matches[1];
             $this->name = $matches[2];
@@ -27,7 +27,7 @@ class MappedClass
             $this->name = $matches[1];
         }
 
-        $this->obfuscatedName = $obfuscatedName;
+        $this->unmappedName = $unmappedName;
     }
 
     /**
@@ -41,9 +41,9 @@ class MappedClass
     /**
      * @return string
      */
-    public function getObfuscatedName(): string
+    public function getUnmappedName(): string
     {
-        return $this->obfuscatedName;
+        return $this->unmappedName;
     }
 
     /**
@@ -68,35 +68,15 @@ class MappedClass
     }
 
     /**
-     * @param $line
-     * @return void
-     */
-    public function handleFieldOrMethod($line): void
-    {
-        if (preg_match("/^\s+(\d+):(\d+):([^\s]+) ([^\s(]+)\s?\(([^)]*)\) -> ([^\s]+)$/", $line, $matches)) {
-            $method = new MappedMethod($this, ...array_slice($matches, 1));
-            $this->methods[] = $method;
-        }
-        else {
-            if(!preg_match("/^\s+([^\s]+) ([^\s]+) -> ([^\s]+)$/", $line, $matches)) {
-                throw new \Exception("Invalid field line: " . $line);
-            }
-
-            $field = new MappedField($this, ...array_slice($matches, 1));
-            $this->fields[$field->getObfuscatedName()] = $field;
-        }
-    }
-
-    /**
-     * get a method of this class by it's obfuscated name and the line number
-     * @param string $name obfuscated name
+     * get a method of this class by it's unmapped name and the line number
+     * @param string $name unmapped name
      * @param int $line line number
      * @return MappedMethod|null
      */
     public function getMethod(string $name, int $line): ?MappedMethod
     {
         foreach ($this->methods as $method) {
-            if ($method->getObfuscatedName() === $name && $method->getStartLine() <= $line && $method->getEndLine() >= $line) {
+            if ($method->getUnmappedName() === $name && $method->getStartLine() <= $line && $method->getEndLine() >= $line) {
                 return $method;
             }
         }
@@ -104,11 +84,32 @@ class MappedClass
     }
 
     /**
-     * @param $name string obfuscated name
+     * add a new method to this class
+     * @param MappedMethod $method
+     * @return void
+     */
+    public function addMethod(MappedMethod $method): void
+    {
+        $this->methods[] = $method;
+    }
+
+    /**
+     * @param $name string unmapped name
      * @return ?MappedField
      */
     public function getField(string $name): ?MappedField
     {
         return $this->fields[$name] ?? null;
+    }
+
+    /**
+     * add a new field to this class
+     * @param MappedField $field
+     * @param string $key
+     * @return void
+     */
+    public function addField(MappedField $field, string $key): void
+    {
+        $this->fields[$key] = $field;
     }
 }

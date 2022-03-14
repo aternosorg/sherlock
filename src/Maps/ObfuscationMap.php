@@ -5,75 +5,66 @@ namespace Aternos\Sherlock\Maps;
 use Aternos\Sherlock\MappedData\MappedClass;
 use Aternos\Sherlock\MappedData\MappedMethod;
 
-class ObfuscationMap
+abstract class ObfuscationMap
 {
-    private string $content;
+    /**
+     * @var string map content
+     */
+    protected string $content;
 
     /**
+     * original name -> class
      * @var MappedClass[]
      */
-    private array $obfuscatedClasses;
+    protected array $unmappedClasses;
 
     /**
+     * mapped name -> class
      * @var MappedClass[]
      */
-    private array $realClasses;
-
-    public function __construct($content)
-    {
-        $this->content = $content;
-        $this->readMappings();
-    }
+    protected array $mappedClasses;
 
     /**
+     * @param $content string obfuscation map content
      * @throws \Exception
      */
-    public function readMappings(): void
-    {
-        $class = null;
-        foreach (preg_split("/((\r?\n)|(\r\n?))/", $this->content) as $line) {
-            if ($line === "" || str_starts_with($line, "#")) {
-                continue;
-            }
-
-            if (preg_match("/^\s+/", $line)) {
-                //methods of class
-                if ($class === null) {
-                    throw new \Exception("Method found before class!");
-                }
-                $class->handleFieldOrMethod($line);
-                continue;
-            }
-
-            if (!preg_match("/^([^\s]+) -> ([^\s]+):$/", $line, $matches)) {
-                throw new \Exception("Invalid class name found: " . $line);
-            }
-
-            $classPath = $matches[1];
-            $obfuscatedName = $matches[2];
-            $class = new MappedClass($classPath, $obfuscatedName);
-            $this->obfuscatedClasses[$obfuscatedName] = $class;
-            $this->realClasses[$classPath] = $class;
-        }
+    public function __construct(string $content) {
+        $this->content = $content;
+        $this->parseMappings();
     }
 
-    public function getObfuscatedClasses(): array
-    {
-        return $this->obfuscatedClasses;
-    }
+    /**
+     * parse mappings for future use
+     * @return void
+     * @throws \Exception
+     */
+    protected abstract function parseMappings(): void;
 
+    /**
+     * get a class
+     * first tries assumes the name is unmapped then falls back to a mapped name
+     * @param string $name
+     * @return MappedClass|null
+     */
     public function getClass(string $name): ?MappedClass
     {
-        return $this->obfuscatedClasses[$name] ?? null;
+        $class = $this->unmappedClasses[$name];
+        if (!isset($class)) {
+            $class = $this->mappedClasses[$name];
+        }
+        return $class ?? null;
     }
 
+    /**
+     * get a method from a class
+     * uses {{@link getClass}} to get the class by name and then finds the method using the name and line
+     * @param string $className
+     * @param string $name
+     * @param int $line
+     * @return MappedMethod|null
+     */
     public function getMethod(string $className, string $name, int $line): ?MappedMethod
     {
-        $class = $this->obfuscatedClasses[$className];
-        if (!isset($class)) {
-            $class = $this->realClasses[$className];
-        }
-        return $class->getMethod($name, $line);
+        return $this->getClass($className)->getMethod($name, $line);
     }
-
 }

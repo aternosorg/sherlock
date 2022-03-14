@@ -2,7 +2,7 @@
 
 namespace Aternos\Sherlock\Maps;
 
-class URLObfuscationMap extends ObfuscationMap
+class URLVanillaObfuscationMap extends VanillaObfuscationMap
 {
     public function __construct($url)
     {

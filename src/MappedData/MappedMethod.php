@@ -10,7 +10,7 @@ class MappedMethod
     private string $returnType;
     private string $name;
     private array $argumentTypes;
-    private string $obfuscatedName;
+    private string $unmappedName;
 
     /**
      * @param MappedClass $class
@@ -19,9 +19,9 @@ class MappedMethod
      * @param string $returnType
      * @param string $name
      * @param string $argumentTypes
-     * @param string $obfuscatedName
+     * @param string $unmappedName
      */
-    public function __construct(MappedClass $class, int $startLine, int $endLine, string $returnType, string $name, string $argumentTypes, string $obfuscatedName)
+    public function __construct(MappedClass $class, int $startLine, int $endLine, string $returnType, string $name, string $argumentTypes, string $unmappedName)
     {
         $this->class = $class;
         $this->startLine = $startLine;
@@ -29,7 +29,7 @@ class MappedMethod
         $this->returnType = $returnType;
         $this->name = $name;
         $this->argumentTypes = preg_split("/,\s?/", $argumentTypes);
-        $this->obfuscatedName = $obfuscatedName;
+        $this->unmappedName = $unmappedName;
     }
 
     /**
@@ -83,8 +83,8 @@ class MappedMethod
     /**
      * @return string
      */
-    public function getObfuscatedName(): string
+    public function getUnmappedName(): string
     {
-        return $this->obfuscatedName;
+        return $this->unmappedName;
     }
 }

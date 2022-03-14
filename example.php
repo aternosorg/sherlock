@@ -3,7 +3,7 @@ require_once('./vendor/autoload.php');
 
 use Aternos\Sherlock\Log\Log;
 use Aternos\Sherlock\MapLocator\LauncherMetaMapLocator;
-use Aternos\Sherlock\Maps\URLObfuscationMap;
+use Aternos\Sherlock\Maps\URLVanillaObfuscationMap;
 
 
 if (count($argv) < 4 || !file_exists($argv[1])) {
@@ -12,7 +12,9 @@ if (count($argv) < 4 || !file_exists($argv[1])) {
 }
 
 echo "Finding mappings...\n";
-$map = new URLObfuscationMap((new LauncherMetaMapLocator($argv[2], $argv[3]))->findMappingURL());
+$url = (new LauncherMetaMapLocator($argv[2], $argv[3]))->findMappingURL();
+echo "Found mappings: $url\n";
+$map = new URLVanillaObfuscationMap($url);
 
 $log = new Log(file_get_contents($argv[1]), $map);
 echo "Deobfuscating log...\n";

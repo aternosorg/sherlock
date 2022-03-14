@@ -2,15 +2,15 @@
 
 namespace Aternos\Sherlock\Log;
 
-use Aternos\Sherlock\Maps\ObfuscationMap;
+use Aternos\Sherlock\Maps\VanillaObfuscationMap;
 
 class Log
 {
     protected string $content;
-    protected ObfuscationMap $obfuscationMap;
+    protected VanillaObfuscationMap $obfuscationMap;
     protected ?string $deobfuscatedContent = null;
 
-    public function __construct(string $content, ObfuscationMap $obfuscationMap)
+    public function __construct(string $content, VanillaObfuscationMap $obfuscationMap)
     {
         $this->content = $content;
         $this->obfuscationMap = $obfuscationMap;
