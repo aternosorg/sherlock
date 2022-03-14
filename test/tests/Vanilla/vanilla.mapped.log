@@ -1,0 +1,24 @@
+[16:31:16] [ServerMain/ERROR]: Failed to start the minecraft server
+com.google.gson.JsonParseException: java.io.EOFException: End of input at line 1 column 1 path $
+	at net.minecraft.util.GsonHelper.a(SourceFile:505) ~[server-1.18.2-pre1.jar:?]
+	at net.minecraft.util.GsonHelper.a(SourceFile:555) ~[server-1.18.2-pre1.jar:?]
+	at net.minecraft.util.GsonHelper.a(SourceFile:551) ~[server-1.18.2-pre1.jar:?]
+	at net.minecraft.util.GsonHelper.a(SourceFile:559) ~[server-1.18.2-pre1.jar:?]
+	at net.minecraft.server.dedicated.Settings.a(SourceFile:108) ~[server-1.18.2-pre1.jar:?]
+	at net.minecraft.server.dedicated.Settings.a(SourceFile:128) ~[server-1.18.2-pre1.jar:?]
+	at net.minecraft.server.dedicated.DedicatedServerProperties.void(SourceFile:84) ~[server-1.18.2-pre1.jar:?]
+	at net.minecraft.server.dedicated.DedicatedServerProperties.a(SourceFile:91) ~[server-1.18.2-pre1.jar:?]
+	at net.minecraft.server.dedicated.DedicatedServerSettings.void(SourceFile:12) ~[server-1.18.2-pre1.jar:?]
+	at net.minecraft.server.Main.void(SourceFile:104) ~[server-1.18.2-pre1.jar:?]
+	at net.minecraft.bundler.Main.lambda$run$0(Main.java:54) ~[?:?]
+	at java.lang.Thread.run(Thread.java:833) [?:?]
+Caused by: java.io.EOFException: End of input at line 1 column 1 path $
+	at com.google.gson.stream.JsonReader.nextNonWhitespace(JsonReader.java:1395) ~[gson-2.8.9.jar:?]
+	at com.google.gson.stream.JsonReader.doPeek(JsonReader.java:548) ~[gson-2.8.9.jar:?]
+	at com.google.gson.stream.JsonReader.peek(JsonReader.java:424) ~[gson-2.8.9.jar:?]
+	at com.google.gson.internal.bind.TypeAdapters$27.read(TypeAdapters.java:661) ~[gson-2.8.9.jar:?]
+	at com.google.gson.internal.bind.TypeAdapters$27.read(TypeAdapters.java:655) ~[gson-2.8.9.jar:?]
+	at com.google.gson.internal.bind.TypeAdapters$33$1.read(TypeAdapters.java:866) ~[gson-2.8.9.jar:?]
+	at net.minecraft.util.GsonHelper.a(SourceFile:503) ~[server-1.18.2-pre1.jar:?]
+	... 11 more
+

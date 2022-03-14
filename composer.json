@@ -6,7 +6,8 @@
         "php": ">=8.0",
         "ext-curl": "*",
         "ext-simplexml": "*",
-        "ext-zlib": "*"
+        "ext-zlib": "*",
+        "phpunit/phpunit": "^9.5"
     },
     "license": "MIT",
     "autoload": {
@@ -19,5 +20,8 @@
             "name": "Julian Vennen",
             "email": "julian@aternos.org"
         }
-    ]
+    ],
+    "scripts": {
+        "test": "phpunit test/tests"
+    }
 }

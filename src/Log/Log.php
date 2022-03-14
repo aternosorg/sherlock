@@ -24,7 +24,7 @@ class Log
         return $this->content;
     }
 
-    public function getDeobfuscatedContent(): string
+    public function getMappedContent(): string
     {
         if ($this->deobfuscatedContent === null) {
             $this->deobfuscatedContent = "";
