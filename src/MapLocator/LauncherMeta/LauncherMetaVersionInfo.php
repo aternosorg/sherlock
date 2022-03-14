@@ -1,6 +1,6 @@
 <?php
 
-namespace Aternos\Sherlock\LauncherMeta;
+namespace Aternos\Sherlock\MapLocator\LauncherMeta;
 
 class LauncherMetaVersionInfo
 {

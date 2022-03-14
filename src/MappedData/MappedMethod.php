@@ -4,38 +4,32 @@ namespace Aternos\Sherlock\MappedData;
 
 class MappedMethod
 {
-    private MappedClass $class;
-    private int $startLine;
-    private int $endLine;
-    private string $returnType;
+    private ?MappedClass $class;
+    private ?int $startLine;
+    private ?int $endLine;
     private string $name;
-    private array $argumentTypes;
     private string $unmappedName;
 
     /**
-     * @param MappedClass $class
-     * @param int $startLine
-     * @param int $endLine
-     * @param string $returnType
+     * @param MappedClass|null $class
+     * @param int|null $startLine
+     * @param int|null $endLine
      * @param string $name
-     * @param string $argumentTypes
      * @param string $unmappedName
      */
-    public function __construct(MappedClass $class, int $startLine, int $endLine, string $returnType, string $name, string $argumentTypes, string $unmappedName)
+    public function __construct(?MappedClass $class, ?int $startLine, ?int $endLine, string $name, string $unmappedName)
     {
         $this->class = $class;
         $this->startLine = $startLine;
         $this->endLine = $endLine;
-        $this->returnType = $returnType;
         $this->name = $name;
-        $this->argumentTypes = preg_split("/,\s?/", $argumentTypes);
         $this->unmappedName = $unmappedName;
     }
 
     /**
-     * @return MappedClass
+     * @return MappedClass|null
      */
-    public function getClass(): MappedClass
+    public function getClass(): ?MappedClass
     {
         return $this->class;
     }
@@ -59,25 +53,9 @@ class MappedMethod
     /**
      * @return string
      */
-    public function getReturnType(): string
-    {
-        return $this->returnType;
-    }
-
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getArgumentTypes(): array
-    {
-        return $this->argumentTypes;
     }
 
     /**

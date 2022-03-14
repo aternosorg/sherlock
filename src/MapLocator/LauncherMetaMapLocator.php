@@ -2,8 +2,8 @@
 
 namespace Aternos\Sherlock\MapLocator;
 
-use Aternos\Sherlock\LauncherMeta\LauncherMetaFile;
-use Aternos\Sherlock\LauncherMeta\LauncherMetaVersionList;
+use Aternos\Sherlock\MapLocator\LauncherMeta\LauncherMetaFile;
+use Aternos\Sherlock\MapLocator\LauncherMeta\LauncherMetaVersionList;
 
 class LauncherMetaMapLocator extends MapLocator
 {

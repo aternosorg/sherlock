@@ -43,10 +43,8 @@ class VanillaObfuscationMap extends ObfuscationMap
             }
 
             $classPath = $matches[1];
-            $obfuscatedName = $matches[2];
-            $class = new MappedClass($classPath, $obfuscatedName);
-            $this->unmappedClasses[$obfuscatedName] = $class;
-            $this->mappedClasses[$classPath] = $class;
+            $unmappedName = $matches[2];
+            $class = new MappedClass($classPath, $unmappedName);
         }
     }
 }

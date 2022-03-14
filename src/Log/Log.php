@@ -2,15 +2,15 @@
 
 namespace Aternos\Sherlock\Log;
 
-use Aternos\Sherlock\Maps\VanillaObfuscationMap;
+use Aternos\Sherlock\Maps\ObfuscationMap;
 
 class Log
 {
     protected string $content;
-    protected VanillaObfuscationMap $obfuscationMap;
+    protected ObfuscationMap $obfuscationMap;
     protected ?string $deobfuscatedContent = null;
 
-    public function __construct(string $content, VanillaObfuscationMap $obfuscationMap)
+    public function __construct(string $content, ObfuscationMap $obfuscationMap)
     {
         $this->content = $content;
         $this->obfuscationMap = $obfuscationMap;
@@ -29,20 +29,26 @@ class Log
         if ($this->deobfuscatedContent === null) {
             $this->deobfuscatedContent = "";
             foreach (preg_split("/((\r?\n)|(\r\n?))/", $this->content) as $line) {
-                if (preg_match("/^(\s*)at (.+)\.([^.]+)\(SourceFile:(\d+)\)(.*)$/", $line, $matches)) {
-                    [,$whitespace, $className, $methodName, $lineNumber, $end] = $matches;
+                if (preg_match("/^(\s*)at (.+)\.([^.]+)\(([^:]+):(\d+)\)(.*)$/", $line, $matches)) {
+                    [,$whitespace, $className, $methodName, $pretences, $lineNumber, $end] = $matches;
                     $class = $this->obfuscationMap->getClass($className);
                     if ($class !== null) {
-                        $method = $class->getMethod($methodName, $lineNumber);
+                        $method = $this->obfuscationMap->getMethod($className, $methodName, $lineNumber);
                         if ($method !== null) {
                             $methodName = $method->getName();
                         }
 
-                        if (preg_match("/^\s+\[$className\.class:\?]$/", $end, $endMatches)) {
+                        // client/optifine? file names
+                        if (preg_match("/^\s+\[$className\.class:\?]$/", $end)) {
                             $end = " [" . $class->getName() . ".class:?]";
                         }
 
-                        $this->deobfuscatedContent .= $whitespace . "at " . $class->getPath() . "." . $methodName . "(SourceFile:" . $lineNumber . ")" . $end . "\n";
+                        //Fabric file names
+                        if ("net.minecraft." . $pretences === $class->getUnmappedName()  . ".java") {
+                            $pretences = $class->getName() . ".java";
+                        }
+
+                        $this->deobfuscatedContent .= "${whitespace}at " . $class->getPath() . ".$methodName($pretences:$lineNumber)$end\n";
                         continue;
                     }
                 }
