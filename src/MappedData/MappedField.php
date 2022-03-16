@@ -4,20 +4,13 @@ namespace Aternos\Sherlock\MappedData;
 
 class MappedField
 {
-    private ?MappedClass $class;
-    private string $name;
-    private string $unmappedName;
-
     /**
      * @param MappedClass|null $class
      * @param string $name
      * @param string $unmappedName
      */
-    public function __construct(?MappedClass $class, string $name, string $unmappedName)
+    public function __construct(protected ?MappedClass $class, protected string $name, protected string $unmappedName)
     {
-        $this->class = $class;
-        $this->name = $name;
-        $this->unmappedName = $unmappedName;
     }
 
     /**

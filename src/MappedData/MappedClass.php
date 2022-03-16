@@ -6,7 +6,6 @@ class MappedClass
 {
     protected string $name;
     protected string $package = "";
-    protected string $unmappedName;
     /**
      * @var MappedMethod[]
      */
@@ -16,7 +15,7 @@ class MappedClass
      */
     protected array $fields;
 
-    public function __construct($mappedName, $unmappedName)
+    public function __construct($mappedName, protected string $unmappedName)
     {
         preg_match("/^(?:(.*)\.)?([^.]+)$/", $mappedName, $matches);
         if (isset($matches[2])) {
@@ -26,8 +25,6 @@ class MappedClass
         else {
             $this->name = $matches[1];
         }
-
-        $this->unmappedName = $unmappedName;
     }
 
     /**

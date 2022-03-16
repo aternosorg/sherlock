@@ -6,14 +6,10 @@ use Aternos\Sherlock\Maps\ObfuscationMap;
 
 class Log
 {
-    protected string $content;
-    protected ObfuscationMap $obfuscationMap;
     protected ?string $deobfuscatedContent = null;
 
-    public function __construct(string $content, ObfuscationMap $obfuscationMap)
+    public function __construct(protected string $content, protected ObfuscationMap $obfuscationMap)
     {
-        $this->content = $content;
-        $this->obfuscationMap = $obfuscationMap;
     }
 
     /**

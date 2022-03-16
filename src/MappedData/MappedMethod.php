@@ -4,11 +4,6 @@ namespace Aternos\Sherlock\MappedData;
 
 class MappedMethod
 {
-    private ?MappedClass $class;
-    private ?int $startLine;
-    private ?int $endLine;
-    private string $name;
-    private string $unmappedName;
 
     /**
      * @param MappedClass|null $class
@@ -17,13 +12,8 @@ class MappedMethod
      * @param string $name
      * @param string $unmappedName
      */
-    public function __construct(?MappedClass $class, ?int $startLine, ?int $endLine, string $name, string $unmappedName)
+    public function __construct(protected ?MappedClass $class, protected ?int $startLine, protected ?int $endLine, protected string $name, protected string $unmappedName)
     {
-        $this->class = $class;
-        $this->startLine = $startLine;
-        $this->endLine = $endLine;
-        $this->name = $name;
-        $this->unmappedName = $unmappedName;
     }
 
     /**

@@ -9,28 +9,22 @@ use Aternos\Sherlock\MappedData\MappedMethod;
 abstract class ObfuscationMap
 {
     /**
-     * @var string map content
-     */
-    protected string $content;
-
-    /**
      * original name -> class
      * @var MappedClass[]
      */
-    protected array $unmappedClasses;
+    protected array $unmappedClasses = [];
 
     /**
      * mapped name -> class
      * @var MappedClass[]
      */
-    protected array $mappedClasses;
+    protected array $mappedClasses = [];
 
     /**
-     * @param $url string obfuscation map content
+     * @param $content string obfuscation map content
      * @throws \Exception
      */
-    public function __construct(string $url) {
-        $this->content = $url;
+    public function __construct(protected string $content) {
         $this->parseMappings();
     }
 

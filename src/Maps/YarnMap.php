@@ -8,8 +8,8 @@ use Aternos\Sherlock\MappedData\MappedMethod;
 
 class YarnMap extends ObfuscationMap
 {
-    protected array $fields;
-    protected array $methods;
+    protected array $fields = [];
+    protected array $methods = [];
 
     protected function parseMappings(): void
     {
