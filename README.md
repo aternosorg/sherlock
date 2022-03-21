@@ -17,6 +17,7 @@ You can get the url of a Vanilla Obfuscation Map for any Minecraft version
 (including snapshots) using the LauncherMetaMapLocator:
 ```php
 $url = new \Aternos\Sherlock\MapLocator\LauncherMetaMapLocator("1.18.2-pre1", "server");
+$map = new \Aternos\Sherlock\Maps\URLVanillaObfuscationMap($url)
 ```
 The second parameter in this example is the mapping type. Mojang releases both server 
 and client Obfuscation Maps, so you will have to pick the one that matches your environment.
@@ -28,13 +29,14 @@ To process such a log you need the corresponding Yarn mappings. You can get the 
 map file from the Fabric Maven repository like this:
 ```php
 $url = new \Aternos\Sherlock\MapLocator\FabricMavenMapLocator("1.18.2-pre1");
+$map = new \Aternos\Sherlock\Maps\GZURLYarnMap($url);
 ```
 Yarn mappings are not environment dependent since Intermediary already takes care of the differences.
 
 
 ### Remapping a log using the Obfuscation Map
 ```php
-$log = new \Aternos\Sherlock\Log\Log(file_get_contents("test.log"));
+$log = new \Aternos\Sherlock\Log\Log(file_get_contents("test.log"), $map);
 $remappedContent = $log->getMappedContent();
 file_put_contents("test.mapped.log", $remappedContent)
 ```
