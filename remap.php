@@ -1,11 +1,11 @@
 <?php
 require_once('./vendor/autoload.php');
 
-use Aternos\Sherlock\Log\Log;
 use Aternos\Sherlock\MapLocator\FabricMavenMapLocator;
 use Aternos\Sherlock\MapLocator\LauncherMetaMapLocator;
 use Aternos\Sherlock\Maps\GZURLYarnMap;
 use Aternos\Sherlock\Maps\URLVanillaObfuscationMap;
+use Aternos\Sherlock\ObfuscatedString;
 
 if (count($argv) < 4 || !file_exists($argv[1])) {
     echo "Usage: <file> <version> client|server|yarn [output-file]";
@@ -33,7 +33,7 @@ catch (\Exception $e) {
     exit;
 }
 
-$log = new Log(file_get_contents($argv[1]), $map);
+$log = new ObfuscatedString(file_get_contents($argv[1]), $map);
 echo "Remapping log...\n";
 file_put_contents($argv[4] ?? ((str_ends_with($argv[1], ".log") ? substr($argv[1], 0, strlen($argv[1]) - 4) : $argv[1])
         . ".mapped.log"), $log->getMappedContent());

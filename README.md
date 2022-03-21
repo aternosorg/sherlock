@@ -36,7 +36,7 @@ Yarn mappings are not environment dependent since Intermediary already takes car
 
 ### Remapping a log using the Obfuscation Map
 ```php
-$log = new \Aternos\Sherlock\Log\Log(file_get_contents("test.log"), $map);
+$log = new \Aternos\Sherlock\ObfuscatedString(file_get_contents("test.log"), $map);
 $remappedContent = $log->getMappedContent();
 file_put_contents("test.mapped.log", $remappedContent)
 ```

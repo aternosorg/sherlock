@@ -1,10 +1,10 @@
 <?php
 
-namespace Aternos\Sherlock\Log;
+namespace Aternos\Sherlock;
 
 use Aternos\Sherlock\Maps\ObfuscationMap;
 
-class Log
+class ObfuscatedString
 {
     protected ?string $deobfuscatedContent = null;
 
