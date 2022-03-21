@@ -1,6 +1,6 @@
 <?php
 
-namespace Vanilla;
+namespace Aternos\Sherlock\Test\Vanilla;
 
 use Aternos\Sherlock\MapLocator\LauncherMetaMapLocator;
 use Aternos\Sherlock\Maps\URLVanillaObfuscationMap;
@@ -16,7 +16,7 @@ class VanillaTest extends TestCase
     {
         $url = (new LauncherMetaMapLocator("1.18.2-pre1", "server"))->findMappingURL();
         $map = new URLVanillaObfuscationMap($url);
-        $log = new ObfuscatedString(file_get_contents("./test/tests/Vanilla/vanilla.log"), $map);
-        self::assertEquals(file_get_contents("./test/tests/Vanilla/vanilla.mapped.log"), $log->getMappedContent());
+        $log = new ObfuscatedString(file_get_contents("./test/Vanilla/vanilla.log"), $map);
+        self::assertEquals(file_get_contents("./test/Vanilla/vanilla.mapped.log"), $log->getMappedContent());
     }
 }

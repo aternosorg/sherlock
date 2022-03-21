@@ -15,6 +15,11 @@
             "Aternos\\Sherlock\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Aternos\\Sherlock\\Test\\": "test/"
+        }
+    },
     "authors": [
         {
             "name": "Julian Vennen",
