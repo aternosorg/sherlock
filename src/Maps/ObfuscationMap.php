@@ -51,6 +51,15 @@ abstract class ObfuscationMap
         return $this->unmappedClasses;
     }
 
+    /**
+     * get the raw obfuscation map content
+     * @return string
+     */
+    public function getContent(): string
+    {
+        return $this->content;
+    }
+
     protected function addClass(MappedClass $class): void
     {
         $this->unmappedClasses[$class->getUnmappedName()] = $class;

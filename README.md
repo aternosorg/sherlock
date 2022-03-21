@@ -33,6 +33,11 @@ $map = new \Aternos\Sherlock\Maps\GZURLYarnMap($url);
 ```
 Yarn mappings are not environment dependent since Intermediary already takes care of the differences.
 
+#### Caching Map contents
+When you have created an Obfuscation Map you can get the raw content using the getContent() method. 
+You can cache that to reduce requests to the APIs that are used to retrieve them.
+When you want to create an Obfuscation Map from a string directly you can create an instance of
+VanillaObfuscationMap and YarnMap directly.
 
 ### Remapping a log using the Obfuscation Map
 ```php
