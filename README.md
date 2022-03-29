@@ -6,7 +6,7 @@ with useful names using Mappings provided by Mojang (or FabricMC).
 
 ### Installation
 ```
-composter require aternos/sherlock
+composer require aternos/sherlock
 ```
 
 ## Usage
