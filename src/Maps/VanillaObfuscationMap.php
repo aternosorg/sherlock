@@ -22,7 +22,8 @@ class VanillaObfuscationMap extends ObfuscationMap
                     if ($class === null) {
                         throw new \Exception("Method found before class!");
                     }
-                    $class->addMethod(new MappedMethod($class, ...array_slice($matches, 1)));
+                    [,$start, $end, $returnType, $name, , $unmappedName] = $matches;
+                    $class->addMethod(new MappedMethod($class, (int) $start, (int) $end, $name, $unmappedName));
                 }
                 else if (preg_match("/^\s+([^\s]+) ([^\s]+) -> ([^\s]+)$/", $line, $matches)) {
                     if ($class === null) {

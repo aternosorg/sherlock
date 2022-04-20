@@ -91,7 +91,7 @@ abstract class ObfuscationMap
      */
     public function getMethod(string $className, string $name, int $line): ?MappedMethod
     {
-        return $this->getClass($className)->getMethod($name, $line);
+        return $this->getClass($className)?->getMethod($name, $line);
     }
 
     /**
