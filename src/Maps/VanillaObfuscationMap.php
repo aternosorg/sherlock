@@ -18,14 +18,14 @@ class VanillaObfuscationMap extends ObfuscationMap
             }
 
             if (str_starts_with($line, " ")) {
-                if (preg_match("/^\s+(\d+):(\d+):([^\s]+) ([^\s(]+)\s?\(([^)]*)\) -> ([^\s]+)$/", $line, $matches)) {
+                if (preg_match("/^\s+(\d+):(\d+):(\S+) ([^\s(]+)\s?\(([^)]*)\) -> (\S+)$/", $line, $matches)) {
                     if ($class === null) {
                         throw new \Exception("Method found before class!");
                     }
                     [,$start, $end, $returnType, $name, , $unmappedName] = $matches;
                     $class->addMethod(new MappedMethod($class, (int) $start, (int) $end, $name, $unmappedName));
                 }
-                else if (preg_match("/^\s+([^\s]+) ([^\s]+) -> ([^\s]+)$/", $line, $matches)) {
+                else if (preg_match("/^\s+(\S+) (\S+) -> (\S+)$/", $line, $matches)) {
                     if ($class === null) {
                         throw new \Exception("Field found before class!");
                     }
