@@ -12,11 +12,22 @@ class FabricTest extends TestCase
     /**
      * @throws \Exception
      */
-    public function testRemapLog(): void
+    public function testRemap1_18_2_pre1_log(): void
     {
         $url = (new FabricMavenMapLocator("1.18.2-pre1"))->findMappingURL();
         $map = new GZURLYarnMap($url);
-        $log = new ObfuscatedString(file_get_contents("./test/Fabric/fabric.log"), $map);
-        self::assertEquals(file_get_contents("./test/Fabric/fabric.mapped.log"), $log->getMappedContent());
+        $log = new ObfuscatedString(file_get_contents("./test/Fabric/1.18.2-pre1.log"), $map);
+        self::assertEquals(file_get_contents("./test/Fabric/1.18.2-pre1.mapped.log"), $log->getMappedContent());
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function testRemap_1_21_3_crash_report(): void
+    {
+        $url = (new FabricMavenMapLocator("1.21.3"))->findMappingURL();
+        $map = new GZURLYarnMap($url);
+        $log = new ObfuscatedString(file_get_contents("./test/Fabric/1.21.3-crash-report.txt"), $map);
+        self::assertEquals(file_get_contents("./test/Fabric/1.21.3-crash-report.mapped.txt"), $log->getMappedContent());
     }
 }

@@ -28,7 +28,7 @@ class ObfuscatedString
 
         $this->deobfuscatedContent = "";
         foreach (preg_split("/((\r?\n)|(\r\n?))/", $this->content) as $line) {
-            if (!preg_match("/^(\s*)at (.+)\.([^.]+)\(([^:]+):(\d+)\)(.*)$/", $line, $matches)) {
+            if (!preg_match("/^(\s*)at (?:\w+\/+)?(.+)\.([^.]+)\(([^:]+):(\d+)\)(.*)$/", $line, $matches)) {
                 $this->deobfuscatedContent .= $line . "\n";
                 continue;
             }
