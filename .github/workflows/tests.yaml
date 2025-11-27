@@ -10,13 +10,13 @@ jobs:
 
     strategy:
       matrix:
-        php-version: [ '8.1', '8.0' ]
+        php-version: [ '8.5', '8.4', '8.3', '8.2', '8.1', '8.0' ]
 
     name: Run tests on PHP v${{ matrix.php-version }}
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -28,7 +28,7 @@ jobs:
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
       - name: Restore composer from cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
