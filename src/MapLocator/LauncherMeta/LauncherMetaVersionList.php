@@ -47,7 +47,6 @@ class LauncherMetaVersionList
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_URL, $url);
         $result = curl_exec($curl);
-        curl_close($curl);
         return json_decode($result);
     }
 

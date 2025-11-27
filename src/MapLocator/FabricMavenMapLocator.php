@@ -48,7 +48,6 @@ class FabricMavenMapLocator extends MapLocator
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_URL, $url);
         $result = curl_exec($curl);
-        curl_close($curl);
         return new SimpleXMLElement($result);
     }
 }
