@@ -14,14 +14,14 @@ class YarnMap extends ObfuscationMap
     protected function parseMappings(): void
     {
         foreach (preg_split("/((\r?\n)|(\r\n?))/", $this->content) as $line) {
-            $data = str_getcsv($line, "\t");
+            $data = str_getcsv($line, "\t", enclosure: '"', escape: "");
             $type = $data[0];
 
             $named = array_pop($data);
-            $named = str_replace("/", ".", $named);
+            $named = str_replace("/", ".", $named ?? "" );
 
             $intermediary = array_pop($data);
-            $intermediary = str_replace("/", ".", $intermediary);
+            $intermediary = str_replace("/", ".", $intermediary ?? "" );
 
             switch ($type) {
                 case "CLASS":
@@ -37,7 +37,7 @@ class YarnMap extends ObfuscationMap
                     break;
 
                 case "v1":
-                case "";
+                case "":
                 case " ":
                     break;
 
